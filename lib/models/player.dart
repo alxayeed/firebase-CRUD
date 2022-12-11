@@ -15,9 +15,9 @@ class Player {
   factory Player.fromJson(Map<String, dynamic> json) => Player(
         id: json['id'],
         name: json['name'],
-        age: json['age'].toString(),
+        age: json['age'].toString().isNotEmpty ? json['age'].toString() : 'N/A',
         country: json['country'],
-        club: json['club'],
+        club: json['club'].toString().isNotEmpty ? json['club']: 'N/A',
       );
 
   Map<String, dynamic> toJson() => {
