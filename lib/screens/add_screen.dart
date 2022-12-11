@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase/screens/widgets/custom_input_field.dart';
+import 'package:flutter_firebase/services/player_service.dart';
 
 import '../models/player.dart';
 
@@ -18,27 +19,15 @@ class _AddPlayerState extends State<AddPlayer> {
   TextEditingController countryController = TextEditingController();
   TextEditingController clubController = TextEditingController();
 
+  PlayerService playerService = PlayerService();
+
   // Future fetchPlayers() async {
   //   var firestore = FirebaseFirestore.instance;
   //   QuerySnapshot querySnapshot = await firestore.collection("Players").get();
   //   return querySnapshot.docs;
   // }
 
-  Future addPlayer({required Player player}) async {
-    final docUser = FirebaseFirestore.instance.collection("players").doc();
 
-    player.id = docUser.id;
-    await docUser.set(player.toJson());
-
-    var snackBar = SnackBar(
-      content: Text(
-        '${player.name} added',
-        style: const TextStyle(color: Colors.black),
-      ),
-      backgroundColor: Colors.orange,
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,13 +44,13 @@ class _AddPlayerState extends State<AddPlayer> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  CustomInputField(label: "name", nameController: nameController, mandatory: true,),
+                  CustomInputField(label: "name", controller: nameController, mandatory: true,),
                   const SizedBox(height: 12.0),
-                  CustomInputField(label: "Age", nameController: ageController),
+                  CustomInputField(label: "Age", controller: ageController),
                   const SizedBox(height: 12.0),
-                  CustomInputField(label: "Country", nameController: ageController, mandatory: true,),
+                  CustomInputField(label: "Country", controller: countryController, mandatory: true,),
                   const SizedBox(height: 12.0),
-                  CustomInputField(label: "Club", nameController: ageController),
+                  CustomInputField(label: "Club", controller: clubController),
                   const SizedBox(height: 12.0),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -79,7 +68,15 @@ class _AddPlayerState extends State<AddPlayer> {
                         final player = Player(
                             name: name, age: age, country: country, club: club);
 
-                        addPlayer(player: player);
+                        playerService.addPlayer(player: player);
+                        var snackBar = SnackBar(
+                          content: Text(
+                            '${player.name} added',
+                            style: const TextStyle(color: Colors.black),
+                          ),
+                          backgroundColor: Colors.orange,
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       }
 
                       nameController.clear();

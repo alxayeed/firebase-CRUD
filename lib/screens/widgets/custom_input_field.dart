@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 class CustomInputField extends StatelessWidget {
   const CustomInputField({
     Key? key,
-    required this.nameController,
+    required this.controller,
     required this.label,
     this.mandatory=false
   }) : super(key: key);
 
   final String label;
-  final TextEditingController nameController;
+  final TextEditingController controller;
   final bool mandatory;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: nameController,
+      controller: controller,
       decoration: InputDecoration(
         labelText: label,
         border: OutlineInputBorder(

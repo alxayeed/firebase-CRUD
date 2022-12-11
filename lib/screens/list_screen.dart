@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase/screens/add_screen.dart';
 import 'package:flutter_firebase/screens/widgets/player_info_tile.dart';
+import 'package:flutter_firebase/services/player_service.dart';
 
 import '../models/player.dart';
 
@@ -13,11 +14,7 @@ class PlayerList extends StatefulWidget {
 }
 
 class _PlayerListState extends State<PlayerList> {
-  Stream<List<Player>> fetchPlayers() => FirebaseFirestore.instance
-      .collection("players")
-      .snapshots()
-      .map((snapshot) =>
-          snapshot.docs.map((doc) => Player.fromJson(doc.data())).toList());
+  PlayerService playerService = PlayerService();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +24,7 @@ class _PlayerListState extends State<PlayerList> {
         elevation: 0.0,
       ),
       body: StreamBuilder<List<Player>>(
-        stream: fetchPlayers(),
+        stream: playerService.fetchPlayers(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Text('An error occured ${snapshot.error}');
@@ -52,7 +49,7 @@ class _PlayerListState extends State<PlayerList> {
             MaterialPageRoute(builder: (context) => const AddPlayer()),
           );
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
