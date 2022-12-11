@@ -1,16 +1,44 @@
-# flutter_firebase
+# Flutter firebase 0.1
 
-A new Flutter project.
+### Practice firebase in flutter
 
-## Getting Started
+<hr>
 
-This project is a starting point for a Flutter application.
+## Showcase
 
-A few resources to get you started if this is your first Flutter project:
+<table>
+  <tr>
+    <td></td>
+    <td></td>
+  </tr>
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+  <tr>
+    <td><img src="ss/list.png" width="100%" height="70%" /></td>
+    <td><img src="ss/details.png" width="100%" height="70%" /></td>
+  </tr>
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+ </table>
+<br/>
+
+## Stacks
+
+- Dart
+- Flutter
+
+<br/>
+
+## Topics
+
+1. 
+2. 
+3. 
+
+
+<br/>
+
+## Docs and References
+
+1. Generate SHA-1(ubuntu)
+```
+keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android
+```
