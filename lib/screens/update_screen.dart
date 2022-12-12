@@ -1,18 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase/screens/list_screen.dart';
+import 'package:flutter_firebase/screens/player_info_screen.dart';
 import 'package:flutter_firebase/screens/widgets/custom_input_field.dart';
 import 'package:flutter_firebase/services/player_service.dart';
 
 import '../models/player.dart';
 
-class AddPlayer extends StatefulWidget {
-  const AddPlayer({Key? key}) : super(key: key);
+class UpdatePlayerScreen extends StatefulWidget {
+  Player player;
+  UpdatePlayerScreen({Key? key, required this.player}) : super(key: key);
 
   @override
-  State<AddPlayer> createState() => _AddPlayerState();
+  State<UpdatePlayerScreen> createState() => _UpdatePlayerScreenState();
 }
 
-class _AddPlayerState extends State<AddPlayer> {
+class _UpdatePlayerScreenState extends State<UpdatePlayerScreen> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController ageController = TextEditingController();
@@ -22,11 +25,20 @@ class _AddPlayerState extends State<AddPlayer> {
   PlayerService playerService = PlayerService();
 
   @override
+  initState() {
+    super.initState();
+    nameController.text = widget.player.name;
+    ageController.text = widget.player.age!;
+    countryController.text = widget.player.country;
+    clubController.text = widget.player.club!;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           elevation: 0.0,
-          title: const Text('Add player'),
+          title: Text('Update ${widget.player.name}'),
         ),
         body: Form(
           key: _formKey,
@@ -36,18 +48,18 @@ class _AddPlayerState extends State<AddPlayer> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  CustomInputField(label: "Name", controller: nameController, mandatory: true,),
+                  CustomInputField(player: widget.player, label: "Name", controller: nameController, mandatory: true,),
                   const SizedBox(height: 12.0),
-                  CustomInputField(label: "Age", controller: ageController),
+                  CustomInputField(player: widget.player, label: "Age", controller: ageController),
                   const SizedBox(height: 12.0),
-                  CustomInputField(label: "Country", controller: countryController, mandatory: true,),
+                  CustomInputField(player: widget.player, label: "Country", controller: countryController, mandatory: true,),
                   const SizedBox(height: 12.0),
-                  CustomInputField(label: "Club", controller: clubController),
+                  CustomInputField(player: widget.player, label: "Club", controller: clubController),
                   const SizedBox(height: 12.0),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       elevation: 2.0,
-                      primary: Colors.orange,
+                      primary: Colors.blue,
                       minimumSize: const Size.fromHeight(50),
                     ),
                     onPressed: () {
@@ -57,18 +69,25 @@ class _AddPlayerState extends State<AddPlayer> {
                       final club = clubController.text;
 
                       if (_formKey.currentState!.validate()) {
-                        final player = Player(
+                        final updatedPlayer = Player(
                             name: name, age: age, country: country, club: club);
 
-                        playerService.addPlayer(player: player);
+                        playerService.updatePlayer(
+                            player: updatedPlayer, id: widget.player.id!);
                         var snackBar = SnackBar(
                           content: Text(
-                            '${player.name} added',
+                            '${widget.player.name} updated',
                             style: const TextStyle(color: Colors.black),
                           ),
                           backgroundColor: Colors.orange,
                         );
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const PlayerList()),
+                        );
                       }
 
                       nameController.clear();
@@ -77,7 +96,7 @@ class _AddPlayerState extends State<AddPlayer> {
                       clubController.clear();
                       FocusScope.of(context).unfocus();
                     },
-                    child: const Text('Save', style: TextStyle(fontSize: 24)),
+                    child: const Text('Update', style: TextStyle(fontSize: 24)),
                   )
                 ],
               ),
@@ -86,6 +105,3 @@ class _AddPlayerState extends State<AddPlayer> {
         ));
   }
 }
-
-
-

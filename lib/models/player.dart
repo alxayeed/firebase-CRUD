@@ -12,8 +12,8 @@ class Player {
       required this.country,
       this.club});
 
-  factory Player.fromJson(Map<String, dynamic> json) => Player(
-        id: json['id'],
+  factory Player.fromJson(Map<String, dynamic> json, String id) => Player(
+        id: id,
         name: json['name'],
         age: json['age'].toString().isNotEmpty ? json['age'].toString() : 'N/A',
         country: json['country'],

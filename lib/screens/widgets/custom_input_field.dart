@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 
+import '../../models/player.dart';
+
 class CustomInputField extends StatelessWidget {
   const CustomInputField({
     Key? key,
+    this.player,
     required this.controller,
     required this.label,
-    this.mandatory=false
+    this.mandatory=false,
   }) : super(key: key);
 
   final String label;
   final TextEditingController controller;
   final bool mandatory;
+  final Player? player;
 
   @override
   Widget build(BuildContext context) {

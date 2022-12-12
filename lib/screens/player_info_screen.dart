@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase/screens/update_screen.dart';
+import 'package:flutter_firebase/services/player_service.dart';
 
 import '../models/player.dart';
 
@@ -8,6 +10,8 @@ class PlayerInfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    PlayerService playerService = PlayerService();
+
     return Scaffold(
       appBar: AppBar(title: Text(player.name)),
       body: Padding(
@@ -50,7 +54,12 @@ class PlayerInfoScreen extends StatelessWidget {
                   primary: Colors.orange,
                   minimumSize: const Size.fromHeight(50),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => UpdatePlayerScreen(player: player,)),
+                  );
+                },
                 child: const Text("Update"),
               ),
             ),
@@ -62,7 +71,18 @@ class PlayerInfoScreen extends StatelessWidget {
                   primary: Colors.red,
                   minimumSize: const Size.fromHeight(50),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  playerService.deletePlayer(id: player.id!);
+                  var snackBar = SnackBar(
+                    content: Text(
+                      '${player.name} deleted',
+                      style: const TextStyle(color: Colors.black),
+                    ),
+                    backgroundColor: Colors.red,
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  Navigator.pop(context);
+                },
                 child: const Text("Delete"),
               ),
             )
