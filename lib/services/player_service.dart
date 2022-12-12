@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 
 import '../models/player.dart';
 
@@ -7,8 +6,9 @@ class PlayerService {
   Stream<List<Player>> fetchPlayers() => FirebaseFirestore.instance
       .collection("players")
       .snapshots()
-      .map((snapshot) =>
-          snapshot.docs.map((doc) => Player.fromJson(doc.data(), doc.id)).toList());
+      .map((snapshot) => snapshot.docs
+          .map((doc) => Player.fromJson(doc.data(), doc.id))
+          .toList());
 
   Future<Player?> fetchPlayer(String id) async {
     final docUser =
@@ -18,6 +18,7 @@ class PlayerService {
     if (snapShot.exists) {
       return Player.fromJson(snapShot.data()!, snapShot.id);
     }
+    return null;
   }
 
   Future addPlayer({required Player player}) async {

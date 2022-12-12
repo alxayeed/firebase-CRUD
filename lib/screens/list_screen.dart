@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase/screens/add_screen.dart';
 import 'package:flutter_firebase/screens/widgets/player_info_tile.dart';
@@ -27,13 +26,13 @@ class _PlayerListState extends State<PlayerList> {
         stream: playerService.fetchPlayers(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return Text('An error occured ${snapshot.error}');
+            return Text('An error occurred ${snapshot.error}');
           } else if (snapshot.hasData) {
-            final players = snapshot.data;
+            final players = snapshot.data!;
             return ListView.builder(
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
-                Player player = snapshot.data![index];
+                Player player = players[index];
                 return PlayerInfoTile(player: player);
               },
             );
@@ -54,5 +53,3 @@ class _PlayerListState extends State<PlayerList> {
     );
   }
 }
-
-

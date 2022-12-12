@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase/screens/widgets/custom_input_field.dart';
 import 'package:flutter_firebase/services/player_service.dart';
@@ -36,11 +35,19 @@ class _AddPlayerState extends State<AddPlayer> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  CustomInputField(label: "Name", controller: nameController, mandatory: true,),
+                  CustomInputField(
+                    label: "Name",
+                    controller: nameController,
+                    mandatory: true,
+                  ),
                   const SizedBox(height: 12.0),
                   CustomInputField(label: "Age", controller: ageController),
                   const SizedBox(height: 12.0),
-                  CustomInputField(label: "Country", controller: countryController, mandatory: true,),
+                  CustomInputField(
+                    label: "Country",
+                    controller: countryController,
+                    mandatory: true,
+                  ),
                   const SizedBox(height: 12.0),
                   CustomInputField(label: "Club", controller: clubController),
                   const SizedBox(height: 12.0),
@@ -86,6 +93,3 @@ class _AddPlayerState extends State<AddPlayer> {
         ));
   }
 }
-
-
-

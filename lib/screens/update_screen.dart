@@ -1,7 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase/screens/list_screen.dart';
-import 'package:flutter_firebase/screens/player_info_screen.dart';
 import 'package:flutter_firebase/screens/widgets/custom_input_field.dart';
 import 'package:flutter_firebase/services/player_service.dart';
 
@@ -48,13 +46,29 @@ class _UpdatePlayerScreenState extends State<UpdatePlayerScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  CustomInputField(player: widget.player, label: "Name", controller: nameController, mandatory: true,),
+                  CustomInputField(
+                    player: widget.player,
+                    label: "Name",
+                    controller: nameController,
+                    mandatory: true,
+                  ),
                   const SizedBox(height: 12.0),
-                  CustomInputField(player: widget.player, label: "Age", controller: ageController),
+                  CustomInputField(
+                      player: widget.player,
+                      label: "Age",
+                      controller: ageController),
                   const SizedBox(height: 12.0),
-                  CustomInputField(player: widget.player, label: "Country", controller: countryController, mandatory: true,),
+                  CustomInputField(
+                    player: widget.player,
+                    label: "Country",
+                    controller: countryController,
+                    mandatory: true,
+                  ),
                   const SizedBox(height: 12.0),
-                  CustomInputField(player: widget.player, label: "Club", controller: clubController),
+                  CustomInputField(
+                      player: widget.player,
+                      label: "Club",
+                      controller: clubController),
                   const SizedBox(height: 12.0),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -85,8 +99,7 @@ class _UpdatePlayerScreenState extends State<UpdatePlayerScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  const PlayerList()),
+                              builder: (context) => const PlayerList()),
                         );
                       }
 
