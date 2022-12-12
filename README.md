@@ -1,6 +1,6 @@
 # Flutter firebase 0.1
 
-### A simple application that where firebase is integraded and CRUD functionality implemented using firestore database.
+### A simple application where firebase is integraded and CRUD functionality implemented using firestore database.
 
 The Homepage will display a list of players fetched from firestore database. User can click on a player to see more details of the player, update any info, or delete the player from cloud database. And ofcourse he/she can add new player, the floating action button is right below in the player list screen.
 
